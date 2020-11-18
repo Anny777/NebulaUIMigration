@@ -1,0 +1,24 @@
+<div class="container hide-on-small-and-down" ng-init="getReadyCustoms()">
+  <table style="width: 100%;">
+      <tr>
+          <td class="bt bl"><app-table number="13"></app-table></td>
+          <td class="bt"><app-table number="14"></app-table></td>
+          <td class="bt"><app-table number="15"></app-table></td>
+          <td class="bt br"><app-table number="16"></app-table></td>
+      </tr>
+      <tr>
+          <td class="bl"><app-table number="12"></app-table></td>
+          <td><app-table number="21"></app-table></td>
+          <td><app-table number="22"></app-table></td>
+          <td class="br"><app-table number="17"></app-table></td>
+      </tr>
+      <tr>
+          <td class="bl bb"><app-table number="11"></app-table></td>
+          <td colspan="2" class="bb" style="text-align: center"><app-table number="23"></app-table></td>
+          <td class="br bb"><app-table number="18"></app-table></td>
+      </tr>
+  </table>
+</div>
+<div class="hide-on-med-and-up">
+  <app-table ng-repeat="table in tables" number="table.Number"></app-table>
+</div>

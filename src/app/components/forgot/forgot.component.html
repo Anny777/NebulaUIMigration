@@ -1,0 +1,24 @@
+<p>
+  forgot works!123
+</p>
+<button (click)="refresh()">refresh</button>
+
+<app-order [number]="1"></app-order>
+<app-order [number]="4"></app-order>
+
+<div *ngIf="!(isOrdersLoadnig$ | async)">
+  <b>Orders list</b>
+  <div *ngFor="let order of orders$ | async">
+    {{order.Id}}
+    <div *ngFor="let dish of order.Dishes">
+      {{dish.Name}}
+    </div>
+  </div>
+</div>
+
+<p>
+  Reducer Dish
+</p>
+<div *ngFor="let dish of dishes$ | async">
+  {{dish.Name}}
+</div>

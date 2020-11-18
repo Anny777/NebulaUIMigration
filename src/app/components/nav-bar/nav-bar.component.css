@@ -1,0 +1,23 @@
+nav {
+    height: 64px;
+    line-height: 64px;
+    color: #fff;
+    background-color: #ee6e73;
+    width: 100%;
+}
+
+nav>ul {
+    position: relative;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+}
+
+nav>ul>li {
+    transition: background-color .3s;
+    float: right;
+    padding: 0;
+    display: list-item;
+    text-align: -webkit-match-parent;
+    margin: 0px 45px 0px -25px;
+}

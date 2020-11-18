@@ -1,0 +1,47 @@
+.icon {
+  vertical-align: top;
+  display: inline-block;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  font-size: larger;
+  text-align: center;
+}
+
+.content {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 2vh;
+  margin: 1vh;
+  vertical-align: top;
+  background-color: rgba(242, 242, 242, 0.75);
+}
+
+.success {
+  background-color: lightgreen;
+}
+
+.warning {
+  background-color: lightyellow;
+}
+
+.error {
+  background-color: lightcoral;
+}
+
+mat-spinner {
+  margin: 0 auto;
+}
+
+.tdName{
+  width: 35%;
+}
+
+.tdButt{
+  width: 65%;
+}
+
+.fieldComment{
+  width: 100%;
+  background-color: whitesmoke;
+}

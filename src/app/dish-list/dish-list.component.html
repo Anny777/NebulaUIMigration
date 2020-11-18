@@ -1,0 +1,13 @@
+<table style="width: 50%; float: left;">
+<input type="text" [(ngModel)]="serchNameDish" name="serchNameDish" placeholder="Введите название блюда">
+  <tr *ngFor="let dish of list | myfilter : serchNameDish" (click)="addDish(dish)" style="cursor: pointer;">
+    <td style="width: 80%">
+      {{dish.Name}}
+      <br>
+      {{dish.Consist}}
+    </td>
+    <td>{{dish.Price}} руб.</td>
+  </tr>
+</table>
+
+<app-orderlist style="float: right;" [_array] ="orderArray" [view]="isView" [numberTable]="numberTable" [numberCustom]="numberCustom"></app-orderlist>

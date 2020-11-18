@@ -1,0 +1,37 @@
+<div *ngIf="(isListLoading$ | async)" class="div_for_spinner">
+  <mat-spinner [diameter]="120" class="div_spinner"></mat-spinner>
+</div>
+
+<div *ngIf="!(isListLoading$ | async)" class="content">
+  <div [hidden]="!isCreateOrder">
+    <button class="buttonCreate" mat-raised-button color="warn" (click)="createOrder()">Сделать заказ</button>
+  </div>
+
+  <div [hidden]="isCreateOrder">
+    <div class="divBlock" *ngIf="!(isListLoading$ | async)">
+      <h2 class="header">Меню</h2>
+      <mat-form-field style="width: 100%">
+        <input matInput [(ngModel)]="serchNameDish" name="serchNameDish" placeholder="Введите название блюда">
+      </mat-form-field>
+      <table class="striped">
+          <tbody>
+        <tr *ngFor="let dish of (dishes$ | async) | myfilter : serchNameDish" (click)="addDish(dish)" style="cursor: pointer;">
+          <td>
+            {{dish.Name}}
+            <br> {{dish.Consist}}
+          </td >
+          <td style="width: 60px;">{{dish.Price}} р.</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+
+    <div class="divBlock" style="margin-left:20px; width: 44% !important;">
+      <app-order [hidden]="isOrderLoading$ | async" [number]="numberTable"></app-order>
+      {{(isOrderLoading$ | async)}}
+      <div *ngIf="isOrderLoading$ | async" class="div_for_spinner">
+        <mat-spinner [diameter]="120" class="div_spinner"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.div_for_spinner{
+    width: 49%;
+    background-color: rgba(242, 242, 242, 0.75);
+    display: block;
+    margin: 0 auto;
+}
+
+.div_spinner{
+    display: block;
+    margin: 0 auto;
+}
+
+.buttonCreate{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+}
+
+.content {
+    border-radius: 5px;
+    margin: 5px;
+    vertical-align: top;
+  }

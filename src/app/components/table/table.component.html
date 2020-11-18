@@ -1,0 +1,3 @@
+<a [ngClass]="{'busy': table.busy}" class="{{table.style}}" [routerLink]="['/order', table.number]" matBadge="{{table.readyDishesCount}}"
+  matBadgeSize="large" [matBadgeHidden]="table.readyDishesCount < 1">
+  {{table.number}} </a>

@@ -1,0 +1,4 @@
+<div class="divBlockCook" *ngFor="let order of orders$ | async">
+    <app-order [number]="order.Table"></app-order>
+  </div>
+

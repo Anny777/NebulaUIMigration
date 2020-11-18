@@ -1,0 +1,46 @@
+td.bl {
+    border-left: 5px dotted gray;
+    vertical-align: top;
+    text-align: center;
+}
+
+td.bt {
+    border-top: 5px dotted gray;
+    vertical-align: top;
+    text-align: center;
+}
+
+td.br {
+    border-right: 5px dotted gray;
+    vertical-align: top;
+    text-align: center;
+}
+
+td.bb {
+    border-bottom: 5px dotted gray;
+    vertical-align: top;
+    text-align: center;
+}
+
+.tableBase {
+    border-radius: 10px;
+    /*background: #42b6ca;*/
+    background: url('/src/assets/freeTable.JPG');
+    color: #b43c48;
+    text-align: center;
+    font-size: 70pt;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+    .tableBase.rectangle {
+        width: 150px;
+        height: 200px;
+    }
+
+    .tableBase.square {
+        width: 150px;
+        height: 150px;
+    }

@@ -1,0 +1,11 @@
+<app-nav-bar></app-nav-bar>
+<div id="content">
+  <router-outlet></router-outlet>
+  <div *ngIf="!(isSoundMuted$|async)">
+    <div *ngFor="let o of isSoundActivated$ | async">
+      <audio autoplay>
+        <source src="assets/rington.mp3" type="audio/mp3">
+      </audio>
+    </div>
+  </div>
+</div>

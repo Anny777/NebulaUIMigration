@@ -1,0 +1,164 @@
+<h2 class="header">Стол № {{number}}</h2>
+
+<div name="order" *ngIf="userIsInRole(['Admin','Waiter'])">
+  <h3 class="header">Заказ:</h3>
+  <table class="striped">
+    <tbody *ngFor="let dish of inWorkGroupped">
+      <tr *ngIf="!isStateLoading(dish.key.CookingDishId)">
+        <td>{{dish.key.Name}}</td>
+        <td style="width: 100px;">{{dish.key.Price}} р.</td>
+        <td style="width: 100px;">
+          <div style="cursor:pointer;" class="icon" (click)="setState(dish.key, 5)">
+            <mat-icon>remove</mat-icon>
+          </div>
+          <div class="icon"> {{dish.value.length}} </div>
+          <div style="cursor:pointer;" class="icon" (click)="addDish(dish.key)">
+            <mat-icon>add</mat-icon>
+          </div>
+        </td>
+        <td><strong>{{dish.key.Price * dish.value.length}} р.</strong></td>
+      </tr>
+      <tr *ngIf="isStateLoading(dish.key.CookingDishId)">
+        <td colspan="4">
+          <mat-spinner [diameter]="40"></mat-spinner>
+        </td>
+      </tr>
+    </tbody>
+    <tr>
+      <td><strong>ИТОГО:</strong></td>
+      <td></td>
+      <td></td>
+      <td style="width: 80px;"><strong>{{getTotal()}} руб. </strong></td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <table class="striped">
+    <tr *ngIf="!isLoading">
+      <td colspan="7">
+        <mat-form-field class="fieldComment">
+          <textarea matInput placeholder="Напишите комментарий к заказу" rows="5" style="width: 100%" type="text"
+            (change)="setComment($event)" [value]="order.Comment"></textarea>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td *ngIf="!isLoading">
+        <button mat-raised-button color="warn" (click)="addComment()">Сохранить</button>
+        &nbsp;
+        <button mat-raised-button color="warn" *ngIf="userIsInRole(['Admin','Bartender'])" (click)="close()">Закрыть
+          заказ</button>
+          <!-- <div style="padding:10px;"> -->
+            <button mat-raised-button color="warn" style="margin-left: 10px;" *ngIf="userIsInRole(['Admin','Bartender'])" (click)="export()">Выгрузить
+              заказ</button>
+          <!-- </div> -->
+      </td>
+      <td>
+      </td>
+      <td *ngIf="isLoading" colspan="3">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+<div name="inWork" *ngIf="userIsInRole(['Admin','Cook','Bartender'])" [hidden]="!inWorkDishes || inWorkDishes.length <= 0">
+  <h3 class="header">Блюда:</h3>
+  <table class="table-borderless">
+    <tbody *ngFor="let dish of inWorkDishes">
+      <tr [hidden]="isStateLoading(dish.CookingDishId)">
+        <td class="tdName">{{dish.Name}}</td>
+        <td class="tdButt">
+          <button mat-raised-button color="warn" (click)="setState(dish, 3)">Готово</button>
+          &nbsp;
+          <button mat-raised-button color="warn" (click)="setState(dish, 5)">Запросить
+            отмену</button>
+        </td>
+      </tr>
+      <tr *ngIf="isStateLoading(dish.CookingDishId)">
+        <td colspan="2">
+          <div>
+            <mat-spinner [diameter]="40"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div name="cancellation" [hidden]="!cancellationDishes || cancellationDishes.length <= 0">
+  <h3 class="header">Запрошена отмена:</h3>
+  <table class="table-borderless">
+    <tbody *ngFor="let dish of cancellationDishes">
+      <tr [ngClass]="{'warning': true}" [hidden]="isStateLoading(dish.CookingDishId)">
+        <td>{{dish.Name}}</td>
+        <td>
+          <button mat-raised-button color="warn" (click)="setState(dish, 1)">Подтвердить</button>
+          &nbsp;
+          <button mat-raised-button color="warn" (click)="setState(dish, 2)">Отменить</button>
+        </td>
+      </tr>
+      <tr *ngIf="isStateLoading(dish.CookingDishId)">
+        <td colspan="2">
+          <div>
+            <mat-spinner [diameter]="40"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- <div name="deleted" [hidden]="!deletedDishes || deletedDishes.length <= 0">
+  <h3 class="header">Отменены:</h3>
+  <table class="table-borderless">
+    <tr *ngFor="let dish of deletedDishes" [ngClass]="{'error': true}">
+      <td>{{dish.Name}}</td>
+    </tr>
+  </table>
+</div> -->
+
+<div name="ready" [hidden]="!readyDishes || readyDishes.length <= 0" *ngIf="userIsInRole(['Admin','Waiter'])">
+  <h3 class="header">Готовые:</h3>
+  <table class="table-borderless">
+    <tbody *ngFor="let dish of readyDishes">
+      <tr [ngClass]="{'success': true}" [hidden]="isStateLoading(dish.CookingDishId)">
+        <td>{{dish.Name}}</td>
+        <td>
+          <button mat-raised-button color="warn" (click)="setState(dish, 4)">Забрано</button>
+        </td>
+      </tr>
+      <tr *ngIf="isStateLoading(dish.CookingDishId)">
+        <td colspan="2">
+          <div>
+            <mat-spinner [diameter]="40"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div name="ready" [hidden]="!takenDishes || takenDishes.length <= 0" *ngIf="userIsInRole(['Admin','Bartender'])">
+  <h3 class="header">Забрано:</h3>
+  <table class="table-borderless">
+    <tbody *ngFor="let dish of takenDishes">
+      <tr [ngClass]="{'success': true}" [hidden]="isStateLoading(dish.CookingDishId)">
+        <td>{{dish.Name}}</td>
+        <td>
+        </td>
+      </tr>
+      <tr *ngIf="isStateLoading(dish.CookingDishId)">
+        <td colspan="2">
+          <div>
+            <mat-spinner [diameter]="40"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
