@@ -29,7 +29,7 @@ export class NavBarComponent implements OnInit {
         this.user = this.auth.userInfo.Email;
       }
     });
-    this.auth.getUserInfo(this.auth).subscribe();
+    this.auth.getUserInfo(this.user, this.auth).subscribe();
 
   }
   public logout() {

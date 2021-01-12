@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public login(email: string, pass: string): Observable<any> {
-    return concat(this.getToken(email, pass), this.getUserInfo(this))
+    return concat(this.getToken(email, pass), this.getUserInfo(email, this))
   }
 
   public logout(cb) {
@@ -61,10 +61,8 @@ export class AuthService {
       )
   }
 
-  public getUserInfo(a): Observable<IUser> {
-    debugger;
-    console.log("call");
-    return this.client.get<IUser>(environment.host + "api/Account/GetUserInfo")
+  public getUserInfo(userName: string, a): Observable<IUser> {
+    return this.client.get<IUser>(environment.host + "api/Account/GetUserInfo?userName=" + userName)
       .pipe(
         map(d => {
           a.userInfo = d;
@@ -78,8 +76,7 @@ export class AuthService {
     if (!this.userInfo) {
       return false;
     }
-
-    if (roles.indexOf(this.userInfo.Roles.toString()) > -1) {
+    if (roles.indexOf(this.userInfo.roles.toString()) > -1) {
       return true;
     }
     else

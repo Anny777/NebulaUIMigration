@@ -62,8 +62,8 @@ export class OrderComponent implements OnInit {
 
   private _getUserWorkshopType() {
     let workshopType = null;
-    if (this.auth && this.auth.userInfo && this.auth.userInfo.Roles) {
-      let roles = this.auth.userInfo.Roles;
+    if (this.auth && this.auth.userInfo && this.auth.userInfo.roles) {
+      let roles = this.auth.userInfo.roles;
       if (roles.includes("Bartender")) {
         workshopType = WorkshopType.Bar
       } else if (roles.includes("Cook")) {

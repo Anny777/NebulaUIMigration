@@ -11,7 +11,7 @@ export class userEffects {
     @Effect()
     user$ = this.actions$.ofType(UserActions.GET_USER)
         .pipe(
-            switchMap(c => this.authService.getUserInfo({})
+            switchMap(c => this.authService.getUserInfo("", {})
                 .pipe(
                     map(userInfo => new UserActions.GetUserSuccess(userInfo)),
                     catchError(error => of(new UserActions.GetUserFail(error)))

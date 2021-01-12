@@ -12,7 +12,7 @@ const initialState: IUserState = {
     user: {
         Email: '',
         HasRegistered: false,
-        Roles: ['']
+        roles: ['']
     },
     isLoadingGetUser: false,
     isLoadingLogin: false,

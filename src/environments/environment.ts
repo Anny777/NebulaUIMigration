@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  host: 'http://api.vip-33.ru/'
-  //host: 'http://localhost:62679/'
+  //host: 'http://api.vip-33.ru/'
+  host: 'https://localhost:5001/'
 };
 
 /*
